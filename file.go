@@ -24,7 +24,7 @@ func createFile(path string) *os.File {
 	return file
 }
 
-func writeFile(path string) *os.File {
+func writeFile(path string, content string) {
 	// Open file using READ & WRITE permission.
 	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
 	if isError(err) {
@@ -33,11 +33,7 @@ func writeFile(path string) *os.File {
 	defer file.Close()
 
 	// Write some text line-by-line to file.
-	_, err = file.WriteString("Hello \n")
-	if isError(err) {
-		log.Panic(err)
-	}
-	_, err = file.WriteString("World \n")
+	_, err = file.WriteString(content)
 	if isError(err) {
 		log.Panic(err)
 	}
@@ -47,8 +43,6 @@ func writeFile(path string) *os.File {
 	if isError(err) {
 		log.Panic(err)
 	}
-
-	return file
 }
 
 func readFile(path string) string {
